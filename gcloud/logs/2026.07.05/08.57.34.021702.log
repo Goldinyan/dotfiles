@@ -1,0 +1,12 @@
+2026-07-05 08:57:34,029 DEBUG    root            Loaded Command Group: ['gcloud', 'storage']
+2026-07-05 08:57:34,029 DEBUG    root            Loaded Command Group: ['gcloud', 'storage', 'buckets']
+2026-07-05 08:57:34,052 DEBUG    root            On GCE from disk cache: False
+2026-07-05 08:57:34,197 DEBUG    root            Loaded Command Group: ['gcloud', 'storage', 'buckets', 'list']
+2026-07-05 08:57:34,198 DEBUG    root            Running [gcloud.storage.buckets.list] with arguments: []
+2026-07-05 08:57:34,198 DEBUG    root            Chosen display Format:default
+2026-07-05 08:57:34,198 INFO     root            Display format: "default"
+2026-07-05 08:57:34,199 DEBUG    root            On GCE from memory cache: False
+2026-07-05 08:57:34,204 DEBUG    urllib3.connectionpool Starting new HTTPS connection (1): storage.googleapis.com:443
+2026-07-05 08:57:34,722 DEBUG    urllib3.connectionpool https://storage.googleapis.com:443 "GET /storage/v1/b?alt=json&maxResults=1000&project=codingkidswebsite&projection=full HTTP/1.1" 200 32
+2026-07-05 08:57:34,724 INFO     ___FILE_ONLY___ Listed 0 items.
+

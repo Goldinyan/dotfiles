@@ -1,0 +1,15 @@
+2026-07-05 08:55:51,663 DEBUG    root            Loaded Command Group: ['gcloud', 'config']
+2026-07-05 08:55:51,664 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv']
+2026-07-05 08:55:51,667 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv', 'create']
+2026-07-05 08:55:51,668 DEBUG    root            Running [gcloud.config.virtualenv.create] with arguments: [--python-to-use: "/opt/homebrew/opt/python@3.14/libexec/bin/python"]
+2026-07-05 08:55:51,668 INFO     ___FILE_ONLY___ Creating virtualenv...
+
+2026-07-05 08:55:51,668 DEBUG    root            Executing command: ['/opt/homebrew/opt/python@3.14/libexec/bin/python', '-m', 'venv', '/Users/ansgarseifert/.config/gcloud/virtenv']
+2026-07-05 08:55:51,669 DEBUG    root            On GCE from disk cache: False
+2026-07-05 08:55:52,886 DEBUG    ___FILE_ONLY___ 
+2026-07-05 08:55:52,886 DEBUG    ___FILE_ONLY___ 
+2026-07-05 08:55:52,886 INFO     ___FILE_ONLY___ Installing modules...
+
+2026-07-05 08:55:52,886 DEBUG    root            Executing command: ['/Users/ansgarseifert/.config/gcloud/virtenv/bin/pip3', 'install', '--log', '/Users/ansgarseifert/.config/gcloud/virtenv/install_module.log', '--disable-pip-version-check', 'crcmod', 'grpcio==1.80.0', 'pyopenssl==26.0.0', 'google_crc32c', 'certifi', 'https://github.com/googleapis/enterprise-certificate-proxy/releases/download/v0.3.15/cryptography-46.0.7-cp38-abi3-macosx_10_9_universal2.whl', 'setuptools']
+2026-07-05 08:55:57,877 DEBUG    root            Chosen display Format:default
+2026-07-05 08:55:57,878 INFO     root            Display format: "default"

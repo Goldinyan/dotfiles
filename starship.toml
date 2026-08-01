@@ -1,0 +1,35 @@
+format = " $directory$character"
+
+# [directory]
+# style = "bold #707070"
+# truncate_to_repo = false
+# truncation_length = 0
+
+# [character]
+# success_symbol = "[ʎ](bold #2f2f2f)"
+# error_symbol   = "[ʎ](bold #2f2f2f)"
+# vicmd_symbol   = "[ʎ](bold #2f2f2f)"
+
+[directory]
+style = "bold #a0a0a0"
+truncate_to_repo = false
+truncation_length = 0
+
+[character]
+success_symbol = "[λ](bold #606060)"
+error_symbol   = "[λ](bold #606060)"
+vicmd_symbol   = "[λ](bold #606060)"
+
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[git_branch]
+disabled = false
+
+[git_status]
+disabled = false
+

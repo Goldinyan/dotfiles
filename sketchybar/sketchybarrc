@@ -1,0 +1,112 @@
+#!/bin/bash
+
+source "$CONFIG_DIR/colors.sh"
+
+ITEM_DIR="$CONFIG_DIR/items"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+FONT="JetBrainsMono Nerd Font Mono"
+
+# Setup bar
+bar=(
+    height=35
+    color="$BAR_COLOR"
+    border_width=0
+    shadow=off
+    position=top
+    padding_right=20
+    padding_left=20
+    sticky=on
+    topmost=window
+    show_in_fullscreen=off
+    blur_radius=30
+    background.drawing=on
+)
+
+sketchybar --bar "${bar[@]}"
+
+# Default styling
+defaults=(
+    updates=when_shown
+    icon.font="$FONT:Bold:14.0"
+    icon.color="$WHITE"
+    icon.padding_left=4
+    icon.padding_right=4
+    label.font="$FONT:Bold:14.0"
+    label.color="$WHITE"
+    label.padding_left=4
+    label.padding_right=4
+    padding_right=4
+    padding_left=4
+    background.height=26
+    background.corner_radius=6
+    background.drawing=off
+)
+
+sketchybar --default "${defaults[@]}"
+
+# ============================================================================
+# LEFT SIDE: Temperature
+# ============================================================================
+sketchybar --add item temp left \
+  --set temp \
+    update_freq=10 \
+    icon="󰔏" \
+    script="$PLUGIN_DIR/temp.sh"
+
+# ============================================================================
+# LEFT SIDE: Spaces (5 spaces)
+# ============================================================================
+for i in 1 2 3 4 5; do
+  sketchybar --add space space.$i left \
+    --set space.$i \
+      icon="$i" \
+      label.drawing=off \
+      background.drawing=on \
+      background.border_width=1 \
+      background.border_color="#000000" \
+      associated_space=$i \
+      script="$PLUGIN_DIR/space.sh"
+done
+
+# ============================================================================
+# CENTER: Clock
+# ============================================================================
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon.drawing=off \
+    label.font="$FONT:Bold:16.0" \
+    script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add item spacer_clock right \
+  --set spacer_clock \
+    drawing=off \
+    width=400
+
+# ============================================================================
+# RIGHT SIDE: Current App / Kitty Path
+# ============================================================================
+sketchybar --add item front_app right \
+  --set front_app \
+    icon.drawing=on \
+    label.drawing=on \
+    label.padding_left=10 \
+    icon.padding_right=6 \
+    updates=on \
+    script="$PLUGIN_DIR/front_app.sh"
+
+# ============================================================================
+# RIGHT SIDE: Volume
+# ============================================================================
+sketchybar --add item volume right \
+  --set volume \
+    icon="󰋋" \
+    label.padding_left=8 \
+    update_freq=2 \
+    script="$PLUGIN_DIR/volume.sh"
+
+# Finish
+sketchybar --hotload off
+sketchybar --update
+
+echo "sketchybar configuration loaded..."

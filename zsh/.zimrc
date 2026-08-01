@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+zmodule environment
+zmodule git
+zmodule input
+zmodule termtitle
+zmodule archive
+zmodule zsh-users/zsh-completions
+zmodule completion
+zmodule Aloxaf/fzf-tab
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+
+
