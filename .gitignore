@@ -1,21 +1,27 @@
-gh/
-github-copilot/
-gcloud/
-jgit/
-raycast/
-wireshark/
+
+**/.DS_Store
+**/*_history
+**/*_history_meta/
+**/*.log
+
+**/gcloud/
+**/gh/
+**/github-copilot/
+**/jgit/
+**/raycast/
+**/wireshark/
 
 **/.*_history
 **/*.log
-zsh/.zsh_history
-zsh/.zcompdump*
-zoxide/
+**/zoxide
+**/zsh/.zsh_history
+**/zsh/.zcompdump*
 
-nvim/plugin/
-nvim/.repro/
-nvim/undo/
-nvim/swap/
+**/nvim/plugin/
+**/nvim/.repro/
+**/nvim/undo/
+**/nvim/swap/
 
-*.save
-*.bak
+**/*.save
+**/*.bak
 .DS_Store
