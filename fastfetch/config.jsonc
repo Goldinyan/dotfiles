@@ -2,8 +2,7 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "logo": {
     "padding": {
-      "right": 2,
-      "top": 2
+      "right": 2
     }
   },
   "display": {
@@ -18,98 +17,84 @@
     }
   },
   "modules": [
-  	{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	},
-
-{
-  		"type": "custom",
-			"format": ""
-  	},
     {
       "type": "custom",
-      "format": "ansgar // void"
+      "format": "void // macos"
     },
     {
       "type": "separator",
       "string": "----------------"
     },
     {
-      "type": "custom",
-      "key": "role",
-      "format": "Developer, Student & Activist"
+      "type": "os",
+      "key": "distro"
     },
     {
-      "type": "custom",
-      "key": "os",
-      "format": "macOS (yabai + skhd)"
+      "type": "kernel",
+      "key": "kernel"
     },
     {
-      "type": "custom",
-      "key": "editor",
-      "format": "nvim"
+      "type": "uptime",
+      "key": "uptime"
     },
     {
-      "type": "custom",
-      "key": "shell",
-      "format": "zsh + starship"
+      "type": "packages",
+      "key": "pkgs",
+      "combined": true
     },
     {
-      "type": "custom",
-      "key": "term",
-      "format": "kitty"
+      "type": "shell",
+      "key": "shell"
     },
     {
-      "type": "custom",
-      "key": "langs",
-      "format": "C, C++, TypeScript, Java, Raylib"
+      "type": "de",
+      "key": "desktop"
     },
     {
-      "type": "custom",
-      "key": "web",
-      "format": "React, Next.js, Node.js, Tailwind"
+      "type": "wm",
+      "key": "wm"
     },
     {
-      "type": "custom",
-      "key": "status",
-      "format": "building tools & breaking code"
+      "type": "terminal",
+      "key": "term"
     },
-"break",
+    {
+      "type": "cpu",
+      "key": "cpu",
+      "temp": false,
+      "showPeCoreCount": false
+    },
+    {
+      "type": "gpu",
+      "key": "gpu",
+      "temp": false
+    },
+    {
+      "type": "memory",
+      "key": "mem"
+    },
+    {
+      "type": "disk",
+      "key": "disk",
+      "folders": "/",
+      "showExternal": false,
+      "showHidden": false,
+      "showSubvolumes": false,
+      "showReadOnly": false
+    },
+    {
+      "type": "battery",
+      "key": "battery"
+    },
+    {
+      "type": "locale",
+      "key": "locale"
+    },
+    "break",
     {
       "type": "colors",
       "paddingLeft": 2,
-      "symbol": "blocks"
-    },
-{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	},
-{
-  		"type": "custom",
-			"format": ""
-  	}
-
-
+      "symbol": "circle"
+    }
   ]
 }

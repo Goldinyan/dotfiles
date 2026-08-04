@@ -181,6 +181,17 @@ return {
     vim.lsp.enable("clangd")
 
     -- ============================
+    -- C# (OmniSharp)
+    -- ============================
+    vim.lsp.config("omnisharp", {
+      capabilities = capabilities,
+      cmd = { "omnisharp" },
+      single_file_support = true,
+      root_markers = { "*.sln", "*.csproj", ".git" },
+      filetypes = { "cs" },
+    })
+    vim.lsp.enable("omnisharp")
+    -- ============================
     -- Lua (Entschärft: Kein endloses Crawling)
     -- ============================
     vim.lsp.config("lua_ls", {

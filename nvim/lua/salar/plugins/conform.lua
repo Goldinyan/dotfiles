@@ -17,6 +17,7 @@ return {
       formatters_by_ft = {
         -- C/C++
         c = { "clang-format" },
+        cs = { "csharpier" },
         cpp = { "clang-format" },
         objc = { "clang-format" },
         objcpp = { "clang-format" },

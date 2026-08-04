@@ -1,7 +1,8 @@
 return {
- "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter",
   branch = "main",
-  event = { "BufReadPre", "BufNewFile" },
+  -- bufreadpre to bufreadpost to avoid treesitter highlighting issues on large files
+  event = { "BufReadPost", "BufNewFile" },
   build = ":TSUpdate",
   dependencies = {
     "windwp/nvim-ts-autotag",
@@ -26,6 +27,8 @@ return {
     -- `offset!` handler). Re-register a version that unwraps the list
     -- instead of calling `:range()` on it, so a fenced code block in
     -- hover docs can't take down the UI.
+
+    -- sty-lua:ignore-start
     do
       local non_filetype_match_injection_language_aliases = {
         ex = "elixir",
@@ -56,6 +59,7 @@ return {
           or injection_alias
       end, { force = true })
     end
+    -- sty-lua:ignore-end
 
     -- configure treesitter
     treesitter.setup({ -- enable syntax highlighting
@@ -92,6 +96,7 @@ return {
         "vimdoc",
         "c",
         "cpp",
+        "c_sharp",
         "haskell",
         "gdscript",
         "gdshader",

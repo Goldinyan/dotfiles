@@ -1,112 +1,118 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-source "$CONFIG_DIR/colors.sh"
+sketchybar --hotload on
 
-ITEM_DIR="$CONFIG_DIR/items"
-PLUGIN_DIR="$CONFIG_DIR/plugins"
-FONT="JetBrainsMono Nerd Font Mono"
+# --- KODA PALETTE ---
+FG="0xffb0b0b0"
+DIM="0xff474747"
+LINE="0xff272727"
+KEYWORD="0xff777777"
+EMPHASIS="0xffffffff"
 
-# Setup bar
-bar=(
-    height=35
-    color="$BAR_COLOR"
-    border_width=0
-    shadow=off
-    position=top
-    padding_right=20
-    padding_left=20
-    sticky=on
-    topmost=window
-    show_in_fullscreen=off
-    blur_radius=30
-    background.drawing=on
-)
+# --- GLOBAL BAR CONFIG (TRANSPARENT) ---
+sketchybar --bar \
+  height=32 \
+  position=top \
+  color=0x00000000 \
+  shadow=off \
+  padding_left=12 \
+  padding_right=12 \
+  margin=0 \
+  corner_radius=0
 
-sketchybar --bar "${bar[@]}"
+# --- DEFAULTS (SCHRIFTGRÖSSE +2) ---
+sketchybar --default \
+  icon.font="JetBrainsMono Nerd Font:Bold:15.0" \
+  icon.color=$DIM \
+  label.font="JetBrainsMono Nerd Font:Regular:14.0" \
+  label.color=$FG \
+  padding_left=8 \
+  padding_right=8
 
-# Default styling
-defaults=(
-    updates=when_shown
-    icon.font="$FONT:Bold:14.0"
-    icon.color="$WHITE"
-    icon.padding_left=4
-    icon.padding_right=4
-    label.font="$FONT:Bold:14.0"
-    label.color="$WHITE"
-    label.padding_left=4
-    label.padding_right=4
-    padding_right=4
-    padding_left=4
-    background.height=26
-    background.corner_radius=6
-    background.drawing=off
-)
+# --- MODULES LEFT ---
 
-sketchybar --default "${defaults[@]}"
-
-# ============================================================================
-# LEFT SIDE: Temperature
-# ============================================================================
-sketchybar --add item temp left \
-  --set temp \
-    update_freq=10 \
-    icon="󰔏" \
-    script="$PLUGIN_DIR/temp.sh"
-
-# ============================================================================
-# LEFT SIDE: Spaces (5 spaces)
-# ============================================================================
-for i in 1 2 3 4 5; do
+# 1. Spaces (1 bis 5) mit Auto-Highlighting & Yabai-Window-Icons
+for i in {1..5}; do
   sketchybar --add space space.$i left \
-    --set space.$i \
-      icon="$i" \
-      label.drawing=off \
-      background.drawing=on \
-      background.border_width=1 \
-      background.border_color="#000000" \
-      associated_space=$i \
-      script="$PLUGIN_DIR/space.sh"
+             --set space.$i space=$i \
+             icon=$i \
+             icon.color=$DIM \
+             icon.highlight_color=$EMPHASIS \
+             icon.font="JetBrainsMono Nerd Font:Bold:15.0" \
+             label.font="sketchybar-app-font:Regular:14.0" \
+             label.color=$DIM \
+             label.highlight_color=$EMPHASIS \
+             padding_left=4 \
+             padding_right=4 \
+             script='
+               if [ "$SELECTED" = "true" ]; then
+                 sketchybar --set $NAME icon.highlight=on label.highlight=on
+               else
+                 sketchybar --set $NAME icon.highlight=off label.highlight=off
+               fi
+
+               if command -v yabai &>/dev/null; then
+                 APPS=$(yabai -m query --windows --space $SID 2>/dev/null | jq -r ".[].app" | sort -u)
+                 ICON_STR=""
+
+                 if [ -f "$HOME/.config/sketchybar/plugins/icon_map.sh" ]; then
+                   source "$HOME/.config/sketchybar/plugins/icon_map.sh"
+                   while IFS= read -r app; do
+                     [ -z "$app" ] && continue
+                     icon_map "$app"
+                     ICON_STR+="$ICON_MAP "
+                   done <<< "$APPS"
+                 fi
+
+                 sketchybar --set $NAME label="$ICON_STR"
+               fi
+             ' \
+             --subscribe space.$i space_change front_app_switched space_windows_change
 done
 
-# ============================================================================
-# CENTER: Clock
-# ============================================================================
+sketchybar --add item sep1 left \
+           --set sep1 icon="│" icon.color=$LINE label.drawing=off
+
+sketchybar --add item weather left \
+           --set weather update_freq=1800 \
+           icon.drawing=off \
+           script='
+             WEATHER=$(curl -s "wttr.in/Brünen?format=%t+%c")
+             if [ -n "$WEATHER" ]; then
+               sketchybar --set weather label="$WEATHER"
+             else
+               sketchybar --set weather label="N/A"
+             fi
+           '
+
+# --- MODULES RIGHT ---
+
+# 3. Uhrzeit & Datum (Ohne Icon)
 sketchybar --add item clock right \
-  --set clock \
-    update_freq=10 \
-    icon.drawing=off \
-    label.font="$FONT:Bold:16.0" \
-    script="$PLUGIN_DIR/clock.sh"
+           --set clock update_freq=10 \
+           icon.drawing=off \
+           script="sketchybar --set clock label=\"\$(date +'%a %d %b  %H:%M')\""
 
-sketchybar --add item spacer_clock right \
-  --set spacer_clock \
-    drawing=off \
-    width=400
+# 4. Kopfhörer Status (Bluetooth / Output Check)
+sketchybar --add item audio right \
+           --set audio update_freq=5 \
+           icon="󰋋" \
+           label.drawing=off \
+           script='
+             DEVICES=$(system_profiler SPAudioDataType 2>/dev/null)
+             if echo "$DEVICES" | grep -qiE "headphone|airpods|headset"; then
+               sketchybar --set audio icon.color=0xffffffff drawing=on
+             else
+               sketchybar --set audio drawing=off
+             fi
+           '
 
-# ============================================================================
-# RIGHT SIDE: Current App / Kitty Path
-# ============================================================================
-sketchybar --add item front_app right \
-  --set front_app \
-    icon.drawing=on \
-    label.drawing=on \
-    label.padding_left=10 \
-    icon.padding_right=6 \
-    updates=on \
-    script="$PLUGIN_DIR/front_app.sh"
+# 5. Aktive App (Ganz rechts platziert)
+sketchybar --add item title right \
+           --set title icon.drawing=off \
+           label.color=$EMPHASIS \
+           label.font="JetBrainsMono Nerd Font:Medium:14.0" \
+           script="sketchybar --set title label=\"\$INFO\"" \
+           --subscribe title front_app_switched
 
-# ============================================================================
-# RIGHT SIDE: Volume
-# ============================================================================
-sketchybar --add item volume right \
-  --set volume \
-    icon="󰋋" \
-    label.padding_left=8 \
-    update_freq=2 \
-    script="$PLUGIN_DIR/volume.sh"
-
-# Finish
-sketchybar --hotload off
 sketchybar --update
-
-echo "sketchybar configuration loaded..."

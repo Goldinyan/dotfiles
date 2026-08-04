@@ -1,0 +1,115 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "padding": {
+      "right": 2,
+      "top": 2
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "color": {
+      "keys": "cyan",
+      "title": "blue",
+      "output": "white"
+    },
+    "key": {
+      "width": 10
+    }
+  },
+  "modules": [
+  	{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	},
+
+{
+  		"type": "custom",
+			"format": ""
+  	},
+    {
+      "type": "custom",
+      "format": "ansgar // void"
+    },
+    {
+      "type": "separator",
+      "string": "----------------"
+    },
+    {
+      "type": "custom",
+      "key": "role",
+      "format": "Developer, Student & Activist"
+    },
+    {
+      "type": "custom",
+      "key": "os",
+      "format": "macOS (yabai + skhd)"
+    },
+    {
+      "type": "custom",
+      "key": "editor",
+      "format": "nvim"
+    },
+    {
+      "type": "custom",
+      "key": "shell",
+      "format": "zsh + starship"
+    },
+    {
+      "type": "custom",
+      "key": "term",
+      "format": "kitty"
+    },
+    {
+      "type": "custom",
+      "key": "langs",
+      "format": "C, C++, TypeScript, Java, Raylib"
+    },
+    {
+      "type": "custom",
+      "key": "web",
+      "format": "React, Next.js, Node.js, Tailwind"
+    },
+    {
+      "type": "custom",
+      "key": "status",
+      "format": "building tools & breaking code"
+    },
+"break",
+    {
+      "type": "colors",
+      "paddingLeft": 2,
+      "symbol": "blocks"
+    },
+{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	},
+{
+  		"type": "custom",
+			"format": ""
+  	}
+
+
+  ]
+}
