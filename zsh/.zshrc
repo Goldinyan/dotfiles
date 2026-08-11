@@ -99,4 +99,8 @@ zstyle ':fast-syntax-highlighting:highlight' reserved-word 'fg=#ffffff'
 
 zstyle ':fast-syntax-highlighting:highlight' unknown-token 'fg=#000000'
 zstyle ':fast-syntax-highlighting:highlight' path 'fg=#b0b0b0'
-   
+
+
+
+
+  

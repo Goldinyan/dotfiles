@@ -16,6 +16,7 @@ start_borders() {
             style=square \
             radius=0.0 &
 }
+
 start_borders
 
 # ==============================================================================
@@ -25,7 +26,7 @@ yabai -m config layout bsp
 yabai -m config window_placement second-child
 
 # Padding Adjustments
-yabai -m config top_padding 16
+yabai -m config top_padding 36
 yabai -m config bottom_padding 16
 yabai -m config left_padding 16
 yabai -m config right_padding 16

@@ -5,9 +5,8 @@ local keymap = vim.keymap
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "<C-d>", "<C-d>zz")
 
-
-vim.api.nvim_create_user_command('W', 'w', {})
-vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command("W", "w", {})
+vim.api.nvim_create_user_command("Wq", "wq", {})
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
@@ -52,3 +51,14 @@ keymap.set("n", "<leader>tp", "<cmd>ThemePrev<CR>", { desc = "Previous theme" })
 
 -- terminal related
 keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+
+vim.api.nvim_create_user_command("Ru", function()
+  local lines = {
+    "// =========== [rufus] ===========",
+    "",
+    "// ===============================",
+  }
+  vim.api.nvim_put(lines, "l", true, true)
+end, {})
+
+vim.cmd("cabbrev ru Ru")

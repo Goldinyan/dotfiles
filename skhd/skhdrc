@@ -1,52 +1,46 @@
-# -- Focus Windows --
-# Change focus between windows in the current stack
+.blacklist [
+	"UTM"
+  "VMware Fusion"
+]
+
+# -- focus windows --
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
-alt - p : yabai -m window --focus east
+alt - l : yabai -m window --focus east
 
-# -- Resize Windows --
+# -- move windows --
+cmd + shift - h : yabai -m window --swap west
+cmd + shift - j : yabai -m window --swap south
+cmd + shift - k : yabai -m window --swap north
+cmd + shift - l : yabai -m window --swap east
 
-# Versuche den linken Rand nach links zu schieben, falls das nicht geht (am Rand), ziehe den rechten Rand nach links.
+# -- resize windows --
 alt + shift - h : yabai -m window --resize left:-20:0 || yabai -m window --resize right:-20:0
-
-# Versuche den unteren Rand nach unten zu schieben, falls am Rand, ziehe den oberen Rand nach unten.
 alt + shift - j : yabai -m window --resize bottom:0:20 || yabai -m window --resize top:0:20
-
-# Versuche den oberen Rand nach oben zu schieben, falls am Rand, ziehe den unteren Rand nach oben.
 alt + shift - k : yabai -m window --resize top:0:-20 || yabai -m window --resize bottom:0:-20
-
-# Versuche den rechten Rand nach rechts zu schieben, falls am Rand, ziehe den linken Rand nach rechts.
 alt + shift - l : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
 
-# -- Move Windows --
-# Swap the position of the active window
-shift + cmd - h : yabai -m window --swap west
-shift + cmd - j : yabai -m window --swap south
-shift + cmd - k : yabai -m window --swap north
-shift + cmd - l : yabai -m window --swap east
+# -- move windows between spaces --
+shift + cmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
+shift + cmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
+shift + cmd - 3 : yabai -m window --space 3; yabai -m space --focus 3
+shift + cmd - 4 : yabai -m window --space 4; yabai -m space --focus 4
 
-# -- Layout Management --
-# Toggle zoom (make one window full screen)
+# -- move window to next/prev display --
+shift + alt - n : yabai -m window --display next; yabai -m display --focus next
+shift + alt - p : yabai -m window --display prev; yabai -m display --focus prev
+
+
+# -- layout management --
 alt - f : yabai -m window --toggle zoom-parent
-
-# Toggle split type (horizontal/vertical)
 alt - e : yabai -m window --toggle split
-
-# Toggle float and grid layout (4x4 grid, window takes up 2x2 cells)
 alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
-# -- Restart Services --
-# Quickly reload configs after making changes
+# -- restart services --
 shift + alt - r : yabai --restart-service; skhd --restart-service
 
-# Öffnet dmenu mit deinen installierten Apps (angepasst an dein Koda-Theme)
+# -- apps & launchers --
 cmd + shift - return : mdfind "kMDItemContentType == 'com.apple.application-bundle'" | xargs -I {} basename "{}" | sed 's/\.app$//' | sort -f | dmenu -i -fn "JetBrainsMono Nerd Font:size=14" -nb "#101010" -nf "#b0b0b0" -sb "#272727" -sf "#b0b0b0" | xargs -I {} open -a "{}"
-
-
-# open kitty
 cmd - return : open -na /Applications/Kitty.app
-
-# Close all Kitty instances
 cmd + shift - q : killall kitty
-

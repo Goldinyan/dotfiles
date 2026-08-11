@@ -2,25 +2,23 @@
 
 sketchybar --hotload on
 
-# --- KODA PALETTE ---
+# koda
 FG="0xffb0b0b0"
 DIM="0xff474747"
 LINE="0xff272727"
 KEYWORD="0xff777777"
 EMPHASIS="0xffffffff"
 
-# --- GLOBAL BAR CONFIG (TRANSPARENT) ---
 sketchybar --bar \
   height=32 \
   position=top \
   color=0x00000000 \
   shadow=off \
   padding_left=12 \
-  padding_right=12 \
+  padding_right=16 \
   margin=0 \
   corner_radius=0
 
-# --- DEFAULTS (SCHRIFTGRÖSSE +2) ---
 sketchybar --default \
   icon.font="JetBrainsMono Nerd Font:Bold:15.0" \
   icon.color=$DIM \
@@ -31,7 +29,7 @@ sketchybar --default \
 
 # --- MODULES LEFT ---
 
-# 1. Spaces (1 bis 5) mit Auto-Highlighting & Yabai-Window-Icons
+# spaces 1 to 5 with higlihting 
 for i in {1..5}; do
   sketchybar --add space space.$i left \
              --set space.$i space=$i \
@@ -85,15 +83,112 @@ sketchybar --add item weather left \
              fi
            '
 
-# --- MODULES RIGHT ---
+# current video or song playing in the background (Spotify, YouTube, etc.)
+sketchybar --add item media left \
+           --set media update_freq=2 \
+                 padding_left=16 \
+                 icon.drawing=off \
+                 script='
+                   export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
-# 3. Uhrzeit & Datum (Ohne Icon)
+                   LABEL=""
+                   TIME_INFO=""
+                   CACHE_FILE="/tmp/.sketchybar_media_cache"
+                   MISS_FILE="/tmp/.sketchybar_media_misses"
+
+                   # spotify shows percent and full lenght
+                   if pgrep -x "Spotify" >/dev/null; then
+                     SPOT_DATA=$(osascript -e "tell application \"Spotify\" to if player state is playing then return (artist of current track) & linefeed & (name of current track) & linefeed & (player position as integer) & linefeed & (duration of current track as integer)" 2>/dev/null)
+                     if [ -n "$SPOT_DATA" ]; then
+                       ARTIST=$(echo "$SPOT_DATA" | sed -n "1p")
+                       TITLE=$(echo "$SPOT_DATA" | sed -n "2p")
+                       POS=$(echo "$SPOT_DATA" | sed -n "3p")
+                       DUR_MS=$(echo "$SPOT_DATA" | sed -n "4p")
+
+                       if [ -n "$TITLE" ]; then
+                         if [ -n "$ARTIST" ] && [ "$ARTIST" != "null" ]; then
+                           LABEL="$ARTIST - $TITLE"
+                         else
+                           LABEL="$TITLE"
+                         fi
+
+                         if [ -n "$DUR_MS" ] && [ "$DUR_MS" -gt 0 ] 2>/dev/null; then
+                           D_SEC=$((DUR_MS / 1000))
+                           POS=${POS:-0}
+                           if [ "$D_SEC" -gt 0 ]; then
+                             PCT=$(( (POS * 100) / D_SEC ))
+                             if [ "$PCT" -gt 100 ]; then PCT=100; fi
+                             D_FMT=$(printf "%d:%02d" $((D_SEC / 60)) $((D_SEC % 60)))
+                             TIME_INFO="[$PCT% von $D_FMT]"
+                           fi
+                         fi
+                       fi
+                     fi
+                   fi
+
+                   # fallback browser, youtube only titel no time
+                   if [ -z "$LABEL" ]; then
+                     TITLE=$(nowplaying-cli get title 2>/dev/null)
+                     if [ -n "$TITLE" ] && [ "$TITLE" != "null" ]; then
+                       ARTIST=$(nowplaying-cli get artist 2>/dev/null)
+                       if [ -n "$ARTIST" ] && [ "$ARTIST" != "null" ]; then
+                         LABEL="$ARTIST - $TITLE"
+                       else
+                         LABEL="$TITLE"
+                       fi
+                     fi
+                   fi
+
+                   if [ -n "$LABEL" ]; then
+                     # shorten titel
+                     MAX_LEN=45
+                     if [ ${#LABEL} -gt $MAX_LEN ]; then
+                       LABEL="${LABEL:0:$MAX_LEN}..."
+                     fi
+
+                     # spotify then show percent of time
+                     if [ -n "$TIME_INFO" ]; then
+                       LABEL="$LABEL $TIME_INFO"
+                     fi
+
+                     # save state & reset miss counter
+                     echo "$LABEL" > "$CACHE_FILE"
+                     echo 0 > "$MISS_FILE"
+                     sketchybar --set media drawing=on label="$LABEL"
+                   else
+                     MISSES=$(cat "$MISS_FILE" 2>/dev/null || echo 0)
+                     MISSES=$((MISSES + 1))
+                     echo "$MISSES" > "$MISS_FILE"
+
+                     # hold last frame for up to 2 ticks (approx 4 sec) to prevent flicker
+                     if [ "$MISSES" -le 2 ] && [ -f "$CACHE_FILE" ]; then
+                       LAST_LABEL=$(cat "$CACHE_FILE")
+                       sketchybar --set media drawing=on label="$LAST_LABEL"
+                     else
+                       sketchybar --set media drawing=off label=""
+                     fi
+                   fi
+                 '
+
+# battery status only percentage no icon
+sketchybar --add item battery right \
+					 --set battery update_freq=30 \
+					 icon.drawing=off \
+					 script='
+						 BATTERY=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+						 if [ -n "$BATTERY" ]; then
+							 sketchybar --set battery label="$BATTERY%"
+						 else
+							 sketchybar --set battery label="N/A"
+						 fi
+					 '
+# time and date
 sketchybar --add item clock right \
            --set clock update_freq=10 \
            icon.drawing=off \
            script="sketchybar --set clock label=\"\$(date +'%a %d %b  %H:%M')\""
 
-# 4. Kopfhörer Status (Bluetooth / Output Check)
+# state of headphones or bluetooth audio devices, if connected show icon, else hide
 sketchybar --add item audio right \
            --set audio update_freq=5 \
            icon="󰋋" \
@@ -107,7 +202,7 @@ sketchybar --add item audio right \
              fi
            '
 
-# 5. Aktive App (Ganz rechts platziert)
+# active app
 sketchybar --add item title right \
            --set title icon.drawing=off \
            label.color=$EMPHASIS \
