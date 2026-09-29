@@ -1,13 +1,8 @@
-.blacklist [
-	"UTM"
-  "VMware Fusion"
-]
-
 # -- focus windows --
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+alt - p : yabai -m window --focus east
 
 # -- move windows --
 cmd + shift - h : yabai -m window --swap west
@@ -44,3 +39,8 @@ shift + alt - r : yabai --restart-service; skhd --restart-service
 cmd + shift - return : mdfind "kMDItemContentType == 'com.apple.application-bundle'" | xargs -I {} basename "{}" | sed 's/\.app$//' | sort -f | dmenu -i -fn "JetBrainsMono Nerd Font:size=14" -nb "#101010" -nf "#b0b0b0" -sb "#272727" -sf "#b0b0b0" | xargs -I {} open -a "{}"
 cmd - return : open -na /Applications/Kitty.app
 cmd + shift - q : killall kitty
+
+.blacklist [
+	"UTM"
+  "VMware Fusion"
+]

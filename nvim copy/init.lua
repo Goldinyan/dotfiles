@@ -10,5 +10,5 @@ if stat and stat.size > max_lsp_log_size then
 end
 
 vim.lsp.log.set_level(vim.log.levels.ERROR)
-require("config.core")
-require("config.lazy")
+require("salar.core")
+require("salar.lazy")

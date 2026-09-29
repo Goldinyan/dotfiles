@@ -25,3 +25,4 @@
 **/*.save
 **/*.bak
 .DS_Store
+.zsh_sessions/

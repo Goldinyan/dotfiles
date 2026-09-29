@@ -84,29 +84,10 @@
 
 ## 📁 File Management
 
-### Global File Explorer
-
-| Keymap      | Action                          | Source   |
-| ----------- | ------------------------------- | -------- |
-| `<C-n>`     | Toggle file explorer (Oil)      | oil.nvim |
-| `<leader>e` | Open file explorer (Oil)        | oil.nvim |
-
-### Oil.nvim (inside file explorer)
-
-| Keymap   | Action                            | Source   |
-| -------- | --------------------------------- | -------- |
-| `<CR>`   | Open file or enter directory      | oil.nvim |
-| `-`      | Go to parent directory            | oil.nvim |
-| `q`      | Close file explorer               | oil.nvim |
-| `<Esc>`  | Close file explorer               | oil.nvim |
-| `g.`     | Toggle hidden files               | oil.nvim |
-| `<C-l>`  | Refresh explorer                  | oil.nvim |
-| `<C-p>`  | Preview selected file             | oil.nvim |
-| `<C-s>`  | Open selected file in split       | oil.nvim |
-| `<C-v>`  | Open selected file in vertical split | oil.nvim |
-| `<C-t>`  | Open selected file in new tab     | oil.nvim |
-| `gx`     | Open selected file externally     | oil.nvim |
-| `g?`     | Show Oil help                     | oil.nvim |
+| Keymap      | Action                          | Source    |
+| ----------- | ------------------------------- | --------- |
+| `<C-n>`     | Toggle file explorer (NvimTree) | nvim-tree |
+| `<leader>e` | Focus file explorer             | nvim-tree |
 
 ---
 
@@ -180,4 +161,4 @@
 
 ---
 
-**Last Updated**: 2026-09-29
+**Last Updated**: 2026-07-21

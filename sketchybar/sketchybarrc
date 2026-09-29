@@ -2,12 +2,20 @@
 
 sketchybar --hotload on
 
-# koda
-FG="0xffb0b0b0"
-DIM="0xff474747"
-LINE="0xff272727"
-KEYWORD="0xff777777"
-EMPHASIS="0xffffffff"
+COLOR_MODE="white"
+
+if [ "$COLOR_MODE" = "black" ]; then
+  FG="0xff202020"
+  DIM="0xff777777"
+  LINE="0xffcccccc"
+  EMPHASIS="0xff000000"
+else
+  # Default white mode
+  FG="0xffb0b0b0"
+  DIM="0xff888888"
+  LINE="0xff444444"
+  EMPHASIS="0xffffffff"
+fi
 
 sketchybar --bar \
   height=32 \
@@ -29,7 +37,7 @@ sketchybar --default \
 
 # --- MODULES LEFT ---
 
-# spaces 1 to 5 with higlihting 
+# spaces 1 to 5 with highlighting 
 for i in {1..5}; do
   sketchybar --add space space.$i left \
              --set space.$i space=$i \
@@ -172,16 +180,16 @@ sketchybar --add item media left \
 
 # battery status only percentage no icon
 sketchybar --add item battery right \
-					 --set battery update_freq=30 \
-					 icon.drawing=off \
-					 script='
-						 BATTERY=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
-						 if [ -n "$BATTERY" ]; then
-							 sketchybar --set battery label="$BATTERY%"
-						 else
-							 sketchybar --set battery label="N/A"
-						 fi
-					 '
+                     --set battery update_freq=30 \
+                     icon.drawing=off \
+                     script='
+                         BATTERY=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+                         if [ -n "$BATTERY" ]; then
+                             sketchybar --set battery label="$BATTERY%"
+                         else
+                             sketchybar --set battery label="N/A"
+                         fi
+                     '
 # time and date
 sketchybar --add item clock right \
            --set clock update_freq=10 \
@@ -192,15 +200,25 @@ sketchybar --add item clock right \
 sketchybar --add item audio right \
            --set audio update_freq=5 \
            icon="󰋋" \
+           icon.color=$EMPHASIS \
            label.drawing=off \
            script='
              DEVICES=$(system_profiler SPAudioDataType 2>/dev/null)
              if echo "$DEVICES" | grep -qiE "headphone|airpods|headset"; then
-               sketchybar --set audio icon.color=0xffffffff drawing=on
+               sketchybar --set audio drawing=on
              else
                sketchybar --set audio drawing=off
              fi
            '
+
+sketchybar --add item vorssaint_button right \
+           --set vorssaint_button icon="VS" \
+                                 icon.font="SF Pro:Bold:14.0" \
+                                 icon.color=$EMPHASIS \
+                                 icon.padding_left=4 \
+                                 y_offset=-3 \
+                                 icon.padding_right=4 \
+                                 click_script="osascript -e 'tell application \"System Events\" to tell process \"Vorssaint\" to click menu bar item 1 of menu bar 2'"
 
 # active app
 sketchybar --add item title right \

@@ -1,0 +1,143 @@
+# ========================================================================
+# GIT ALIASES
+# ========================================================================
+
+# base git command
+alias g='git'
+
+# stage changes in current directory
+alias ga='git add .'
+
+# stage all changes across the entire repository
+alias gaa='git add --all'
+
+# commit staged changes with a message
+alias gc='git commit -m'
+
+# add staged changes to the last commit
+alias gca='git commit --amend'
+
+# show working directory and staging area status
+alias gs='git status'
+
+# push local commits to remote repository
+alias gp='git push'
+
+# safely force push without overwriting remote work
+alias gpf='git push --force-with-lease'
+
+# fetch and merge changes from remote repository
+alias gl='git pull'
+
+# show unstaged file modifications
+alias gd='git diff'
+
+# switch branches or restore working tree files
+alias gco='git checkout'
+
+# create and switch to a new branch
+alias gcb='git checkout -b'
+
+# list local branches
+alias gb='git branch'
+
+# display commit history as a concise graph
+alias glog='git log --oneline --graph --decorate'
+
+# ========================================================================
+# COMBINED GIT WORKFLOWS
+# ========================================================================
+
+# pull remote changes and rebase local commits on top
+alias gup='git pull --rebase'
+
+# update last commit with staged files and force push safely
+alias gcp='git commit --amend --no-edit && git push --force-with-lease'
+
+# stage current directory commit with message and push
+gcap() {
+  git add . && git commit -m "$1" && git push
+}
+
+# stage entire repo commit with message and push
+gcaap() {
+  git add --all && git commit -m "$1" && git push
+}
+
+# commit tracked modifications with message and push, not new bc they are not tracked
+gcpn() {
+  git commit -am "$1" && git push
+}
+
+# ========================================================================
+# SYSTEM & NAVIGATION
+# ========================================================================
+
+# launch neovim
+alias v='nvim'
+
+alias ev='z nvim && v'
+
+# clear terminal screen
+alias c='clear'
+
+# reload shell configuration
+alias reload='exec zsh'
+
+# open .zshrc
+alias zshrc='nvim ~/.config/zsh/.zshrc'
+
+# search text with ripgrep keeping full output context
+alias hl='rg --passthru'
+
+# list files with lsd
+alias ls='lsd'
+
+# print file content with bat
+alias cat='bat'
+
+# find files with fd
+alias fd='fd'
+
+# next theme
+alias tn="source $HOME/.config/zsh/scripts/tn.sh"
+
+# next wallpapar
+alias nw="source $HOME/.config/zsh/scripts/nw.sh"
+
+# open firefox in term
+alias ffhere="source $HOME/.config/zsh/scripts/ffhere.sh"
+
+# open $1 in this term
+alias here="source $HOME/.config/zsh/scripts/here.sh"
+
+# cd into $1 and open neovim
+alias dev="source $HOME/.config/zsh/scripts/dev.sh"
+
+# run fetch utility with nixos preset
+alias fetch="~/Desktop/development/utils/fetch/fetch -l nixos"
+
+# run discordo terminal client
+alias discordo="./Desktop/development/utils/discordo/discordo"
+
+# navigate to obsidian vault
+alias cdob="cd && cd 'Library/Mobile Documents/iCloud~md~obsidian/Documents/axiom/'"
+
+# open skhd config in neovim
+alias shelp="z skhd && nvim skhdrc"
+
+# launch firefox via helper script
+alias firefox="source $HOME/.config/zsh/scripts/here.sh firefox"
+
+# launch spotify via helper script
+alias spotify="source $HOME/.config/zsh/scripts/here.sh spotify"
+
+# launch obsidian via helper script
+alias obsidian="source $HOME/.config/zsh/scripts/here.sh obsidian"
+
+# launch whatsapp via helper script
+alias whatsapp="source $HOME/.config/zsh/scripts/here.sh whatsapp"
+
+# launch discord via helper script
+alias discord="source $HOME/.config/zsh/scripts/here.sh discord"
+

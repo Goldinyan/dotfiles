@@ -6,6 +6,7 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "<C-d>", "<C-d>zz")
 
 vim.api.nvim_create_user_command("W", "w", {})
+vim.api.nvim_create_user_command("Q", "q", {})
 vim.api.nvim_create_user_command("Wq", "wq", {})
 
 -- window management
@@ -31,7 +32,7 @@ keymap.set("n", "<leader>br", "<cmd>BufferLineCloseRight<CR>", { desc = "Close a
 keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close all other buffers" })
 
 -- buffer creation
-keymap.set("n", "<leader>n", "<cmd>enew<CR>", { desc = "New buffer" })
+keymap.set("n", "<leader>n", "<md>enew<CR>", { desc = "New buffer" })
 keymap.set("n", "<leader>N", "<cmd>tabnew<CR>", { desc = "New tab" })
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -61,4 +62,20 @@ vim.api.nvim_create_user_command("Ru", function()
   vim.api.nvim_put(lines, "l", true, true)
 end, {})
 
+vim.api.nvim_create_user_command("Cb", function()
+  local lines = {
+    "```",
+    "",
+    "```",
+  }
+  vim.api.nvim_put(lines, "l", true, true)
+
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  -- -2 to get in the top row
+  local target_row = row - 2
+  -- 3 to get to the end of first line
+  vim.api.nvim_win_set_cursor(0, { target_row, 3 })
+end, {})
+
 vim.cmd("cabbrev ru Ru")
+vim.cmd("cabbrev cb Cb")

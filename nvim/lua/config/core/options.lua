@@ -2,6 +2,8 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
+opt.termguicolors = true
+
 opt.relativenumber = true
 opt.number = true
 
@@ -20,6 +22,9 @@ opt.ignorecase = true
 opt.smartcase = true
 
 opt.cursorline = true
+opt.showmode = false
+opt.cmdheight = 0
+opt.shortmess:append("FW")
 
 opt.termguicolors = true
 opt.background = "dark"
@@ -56,4 +61,12 @@ vim.filetype.add({
   filename = {
     ["project.godot"] = "godot",
   },
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  callback = function()
+    vim.defer_fn(function()
+      pcall(vim.api.nvim_echo, {}, false, {})
+    end, 10)
+  end,
 })

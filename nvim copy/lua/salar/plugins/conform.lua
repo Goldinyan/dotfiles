@@ -27,6 +27,8 @@ return {
         typescript = { "prettier" },
         jsx = { "prettier" },
         tsx = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
 
         -- CSS/HTML
         css = { "prettier" },
@@ -84,7 +86,7 @@ return {
 
       -- Auto-format on save
       format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 2000,
         lsp_fallback = true,
       },
 

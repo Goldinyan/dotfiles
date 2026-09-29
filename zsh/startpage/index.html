@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>// void</title>
+    <style>
+      :root {
+        --bg: #0d0d0d;
+        --fg: #a8a8a8;
+        --green: #89b482;
+        --yellow: #d8a657;
+        --dim: #45403d;
+        --border: #1d2021;
+        --font:
+          "JetBrainsMono Nerd Font", "Fira Code", "Courier New", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--fg);
+        font-family: var(--font);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .container {
+        width: 650px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .comment {
+        color: var(--dim);
+        font-style: italic;
+      }
+      .user {
+        color: var(--green);
+        font-weight: 500;
+      }
+      .clock {
+        font-size: 2rem;
+        color: var(--fg);
+        letter-spacing: 1px;
+      }
+
+      /* Search */
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .search-label {
+        color: var(--yellow);
+        font-weight: bold;
+      }
+      .search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--fg);
+        font-family: var(--font);
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      /* Grids */
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 24px 0;
+        border-bottom: 1px solid var(--border);
+        gap: 12px 0;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .link-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 12px;
+        text-decoration: none;
+      }
+
+      .link-title {
+        color: var(--fg);
+        transition: color 0.15s;
+      }
+      .link-key {
+        color: var(--dim);
+        font-size: 0.85rem;
+      }
+      .link-item:hover .link-title {
+        color: var(--yellow);
+      }
+
+      /* Footer */
+      .footer {
+        padding-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        color: var(--dim);
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="info">
+          <span class="comment">// void</span>
+          <span class="user">ansgar@macbook</span>
+        </div>
+        <div class="clock" id="clock">00:00</div>
+      </div>
+
+      <!-- Search Box -->
+      <form class="search-box" action="https://duckduckgo.com/" method="get">
+        <span class="search-label">search</span>
+        <input
+          type="text"
+          name="q"
+          class="search-input"
+          placeholder="duckduckgo"
+          id="search-input"
+          autofocus
+          autocomplete="off"
+        />
+      </form>
+
+      <!-- Main Grid (3 Items) -->
+      <div class="links-grid" id="main-grid">
+        <a href="https://youtube.com" class="link-item">
+          <span class="link-title">"youtube"</span>
+          <span class="link-key">y</span>
+        </a>
+        <a href="https://github.com" class="link-item">
+          <span class="link-title">"github"</span>
+          <span class="link-key">g</span>
+        </a>
+        <a href="https://vercel.com" class="link-item">
+          <span class="link-title">"vercel"</span>
+          <span class="link-key">v</span>
+        </a>
+      </div>
+
+      <!-- Extra Grid (3x3 Grid = 9 Items) -->
+      <div class="links-grid hidden" id="extra-grid">
+        <a href="http://localhost:3000" class="link-item">
+          <span class="link-title">"local:3000"</span>
+          <span class="link-key">1</span>
+        </a>
+        <a href="https://www.instagram.com" class="link-item">
+          <span class="link-title">"instagram"</span>
+          <span class="link-key">i</span>
+        </a>
+        <a href="https://firebase.google.com" class="link-item">
+          <span class="link-title">"firebase"</span>
+          <span class="link-key">f</span>
+        </a>
+
+        <a
+          href="https://www.raylib.com/cheatsheet/cheatsheet.html"
+          class="link-item"
+        >
+          <span class="link-title">"raylib"</span>
+          <span class="link-key">r</span>
+        </a>
+        <a href="https://gemini.google.com" class="link-item">
+          <span class="link-title">"gemini"</span>
+          <span class="link-key">g</span>
+        </a>
+        <a href="https://en.cppreference.com" class="link-item">
+          <span class="link-title">"cppref"</span>
+          <span class="link-key">p</span>
+        </a>
+
+        <a href="https://lucide.dev" class="link-item">
+          <span class="link-title">"lucide"</span>
+          <span class="link-key">l</span>
+        </a>
+        <a href="https://discord.com/app" class="link-item">
+          <span class="link-title">"discord"</span>
+          <span class="link-key">d</span>
+        </a>
+        <a href="https://tiktok.com" class="link-item">
+          <span class="link-title">"tiktok"</span>
+          <span class="link-key">k</span>
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <span
+          >// an idiot admires complexity, a genius admires simplicity.</span
+        >
+        <span style="color: var(--yellow)">[e] extra</span>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Live Clock
+        function updateClock() {
+          const clockEl = document.getElementById("clock");
+          if (!clockEl) return;
+
+          const now = new Date();
+          const hours = String(now.getHours()).padStart(2, "0");
+          const minutes = String(now.getMinutes()).padStart(2, "0");
+          clockEl.textContent = `${hours}:${minutes}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // 2. Grids & State
+        let extraMode = false;
+        const mainGrid = document.getElementById("main-grid");
+        const extraGrid = document.getElementById("extra-grid");
+        const searchInput = document.getElementById("search-input");
+
+        // 3. Keybindings
+        window.addEventListener("keydown", (e) => {
+          const isInputFocused = document.activeElement === searchInput;
+
+          if (!isInputFocused) {
+            // Toggle mit 'e'
+            if (e.key === "e") {
+              extraMode = !extraMode;
+              mainGrid.classList.toggle("hidden", extraMode);
+              extraGrid.classList.toggle("hidden", !extraMode);
+              return;
+            }
+
+            // Shortcuts: Main Grid
+            if (!extraMode) {
+              if (e.key === "y") window.location.href = "https://youtube.com";
+              if (e.key === "g") window.location.href = "https://github.com";
+              if (e.key === "v") window.location.href = "https://vercel.com";
+            }
+
+            // Shortcuts: Extra Grid
+            if (extraMode) {
+              if (e.key === "1") window.location.href = "http://localhost:3000";
+              if (e.key === "i") window.location.href = "https://instagram.com";
+              if (e.key === "f")
+                window.location.href = "https://firebase.google.com";
+              if (e.key === "r")
+                window.location.href =
+                  "https://www.raylib.com/cheatsheet/cheatsheet.html";
+              if (e.key === "g")
+                window.location.href = "https://gemini.google.com";
+              if (e.key === "p")
+                window.location.href = "https://en.cppreference.com";
+              if (e.key === "l") window.location.href = "https://lucide.dev";
+              if (e.key === "d")
+                window.location.href = "https://discord.com/app";
+              if (e.key === "k") window.location.href = "https://tiktok.com";
+            }
+
+            // Focus Search with '/'
+            if (e.key === "/") {
+              e.preventDefault();
+              searchInput.focus();
+            }
+          } else if (e.key === "Escape") {
+            searchInput.blur();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
